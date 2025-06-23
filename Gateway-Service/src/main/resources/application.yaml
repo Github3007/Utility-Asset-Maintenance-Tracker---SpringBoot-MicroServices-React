@@ -1,0 +1,49 @@
+server:
+  port: 8090
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+           corsConfigurations:
+               '[/**]':
+                 allowedOrigins: "*"
+                 allowedMethods:
+                      - GET
+                      - POST
+                      - PUT
+                      - DELETE
+                 allowedHeaders: "*"
+      routes:
+        - id: Asset-Registration-Hierarchy-Management
+          uri: http://localhost:8081/
+          predicates:
+          - Path=/api/assets/**
+        - id: Maintenance-Schedule-Configuration
+          uri: http://localhost:8082/
+          predicates:
+          - Path=/api/maintenance-plans/**
+        - id: Work-Order-Management
+          uri: http://localhost:8085/
+          predicates:
+          - Path=/api/work-orders/**
+        - id: Technician-Assignment-Tracking
+          uri: http://localhost:8088/
+          predicates:
+          - Path=/api/technicians/**
+        - id: Reporting-Compliance-Logs
+          uri: http://localhost:8095/
+          predicates:
+          - Path=/api/reports/**
+        - id: AuthServer
+          uri: http://localhost:8086/
+          predicates:
+          - Path=/api/auth/**
+
+
