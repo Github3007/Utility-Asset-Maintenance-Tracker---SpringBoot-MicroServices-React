@@ -19,7 +19,9 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService {
 
-	public static final String SECRET = "d3780ec3d1cfaba271e0538d4fae686d8367e10155ee424691fbf191eabec53d";
+	// Load JWT secret from environment variable for security
+	private final String SECRET = System.getenv("JWT_SECRET") != null ? 
+		System.getenv("JWT_SECRET") : "d3780ec3d1cfaba271e0538d4fae686d8367e10155ee424691fbf191eabec53d";
 
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
@@ -45,6 +47,14 @@ public class JwtService {
 	                   .build()
 	                   .parseClaimsJws(token)
 	                   .getBody();
+	    } catch (io.jsonwebtoken.ExpiredJwtException e) {
+	        throw new RuntimeException("JWT token has expired", e);
+	    } catch (io.jsonwebtoken.UnsupportedJwtException e) {
+	        throw new RuntimeException("JWT token is unsupported", e);
+	    } catch (io.jsonwebtoken.MalformedJwtException e) {
+	        throw new RuntimeException("JWT token is malformed", e);
+	    } catch (io.jsonwebtoken.security.SecurityException e) {
+	        throw new RuntimeException("JWT token signature validation failed", e);
 	    } catch (Exception e) {
 	        throw new RuntimeException("Invalid JWT token", e);
 	    }
@@ -64,7 +74,6 @@ public class JwtService {
 	public String generateToken(String userName, List<String> roles) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("roles", roles);
-		System.out.println(claims);
 		return createToken(claims, userName);
 	}
 

@@ -26,7 +26,7 @@ function WorkOrderForm() {
         const workOrder = {scheduledDate,status}
         createWorkOrder(workOrder, planId)
                 .then((response) =>{
-                        console.log(response.data);
+            
                         setMessage('Work Order created successfully!');      
 //  Redirect to work order list after success
                 setTimeout(() => {
@@ -38,7 +38,7 @@ function WorkOrderForm() {
                     console.error("Error creating work order:", error);
                     setMessage('Error:Could not create workorder');
                 });
-        console.log(workOrder);
+
  
     }
   return (

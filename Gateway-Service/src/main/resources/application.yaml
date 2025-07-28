@@ -13,13 +13,18 @@ spring:
       globalcors:
            corsConfigurations:
                '[/**]':
-                 allowedOrigins: "*"
+                 allowedOrigins: 
+                   - "http://localhost:3000"
+                   - "http://localhost:3001"
+                   - "http://localhost:3002"
                  allowedMethods:
                       - GET
                       - POST
                       - PUT
                       - DELETE
+                      - OPTIONS
                  allowedHeaders: "*"
+                 allowCredentials: true
       routes:
         - id: Asset-Registration-Hierarchy-Management
           uri: http://localhost:8081/

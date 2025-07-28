@@ -65,7 +65,6 @@ function ListLocationsComponent() {
   useEffect(() => {
     ListLocations()
       .then((response) => {
-        console.log(response.data);
         setLocations(response.data);
       })
       .catch((error) => {

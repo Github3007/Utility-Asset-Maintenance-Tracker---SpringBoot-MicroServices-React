@@ -8,7 +8,7 @@ const [assets,setAssets]= useState([])
 const navigator= useNavigate();
 useEffect(()=>{
     ListAssets().then((response) =>{
-      console.log(response.data);
+      
         setAssets(response.data);
     }).catch(error=>{
         console.error(error);

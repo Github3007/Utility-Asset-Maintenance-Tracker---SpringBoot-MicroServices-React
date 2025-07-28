@@ -90,7 +90,7 @@ function AddLocationComponent() {
  
     axios.post(`http://localhost:8090/api/assets/location/${assetId}`, location)
       .then((response) => {
-        console.log('Location saved:', response.data);
+        
         navigate('/locations'); // redirect to location list
       })
       .catch((error) => {

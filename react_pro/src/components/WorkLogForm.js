@@ -14,10 +14,10 @@ function WorkLogForm() {
        
         e.preventDefault();
         const workLog = {startTime,endTime}
-        console.log(workLog);
+
         createWorkLog(workLog, workOrderId, technicianId)
         .then((response) =>{
-            console.log(response.data);
+
             setMessage('Worklog created successfully!');
             setTimeout(() => {
                 navigate('/worklogs');
